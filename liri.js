@@ -16,6 +16,13 @@ var queryUrl =  "http://www.omdbapi.com/?t=" + movieName + "&y=&plot=short&apike
 
 request(queryUrl, function(error, reponse, body) {
 	if (!error && reponse.statusCode === 200) {
-		console.log(JSON.parse(body));
+		console.log("Title: " + JSON.parse(body).Title);
+		console.log("Year: " + JSON.parse(body).Year);
+		console.log("IMDB Rating: " + JSON.parse(body).imdbRating);
+		console.log("Rotten Tom Rating: " + JSON.parse(body).Ratings[1].Value);
+		console.log("Country: " + JSON.parse(body).Country);
+		console.log("Language: " + JSON.parse(body).Language);
+		console.log("Plot: " + JSON.parse(body).Plot);
+		console.log("Actors: " + JSON.parse(body).Actors);
 	}
 });
