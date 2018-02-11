@@ -3,11 +3,9 @@ var keys = require("./key.js");
 var request = require("request");
 
 var Twitter = require('twitter');
-var twitterKeys = keys.twitterKeys;
-
+var twitterKeys = twitterKeys;
 
 var Spotify = require('node-spotify-api');
-var spotifyKeys = keys.spotifyKeys
 
 var action = process.argv[2];
 var nodeArgs = process.argv;
@@ -69,19 +67,26 @@ function movie() {
 }
 
 function twitter() {
-	var client = new Twitter(twitterKeys);
+	var client = new Twitter(keys);
 
 	var params = {screen_name: 'stacysareas', count: 10};
 
-	client.get('statuses/user_timeline', params, function(error, tweets, response) {
-	  if (!error) {
-	    console.log(tweets);
-	  }
+	client.get('statuses/user_timeline/', params, function(error, tweets, response) {
+		if (error) {
+   	  		throw error;
+	 	} else {
+   			for (i = 0; i < tweets.length; i++) {
+   				console.log(tweets[i].text);
+   			}
+		}
 	});
 }
 
 function spotify() {
-	var client = new Spotify(spotifyKeys);
+	var spotify = new Spotify({
+  		id: "0bc644846c8f4a32a39f911d14fbc69d",
+  		secret: "3fb5ba4428e1496fbc0b270c10e398e1"
+	});
 
 	for (i = 3; i < nodeArgs.length; i++) {
 		if (i > 3 && i < nodeArgs.length) {
