@@ -91,10 +91,8 @@ function spotify() {
 		}
 	}
 
-	if (song === "") {
+	if (value === "") {
 		value = "The sign Ace Of Base";
-	} else {
-		value = song;
 	}
 
 	spotify.search({ type: 'track', query: value }, function(error, data) {
