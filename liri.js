@@ -7,6 +7,8 @@ var twitterKeys = twitterKeys;
 
 var Spotify = require('node-spotify-api');
 
+var fs = require("fs");
+
 var action = process.argv[2];
 var nodeArgs = process.argv;
 
@@ -26,7 +28,7 @@ switch (action) {
 	break;
 
 	case "do-what-i-say":
-	spotify(nodeArgs);
+	random();
 	break;
 }
 
@@ -104,7 +106,24 @@ function spotify() {
 	  if (error) {
 	    return console.log('Error occurred: ' + error);
 	  }
-	 
-	console.log(data); 
+	    console.log("Song Name: " + data.tracks.items[0].name);
+	    console.log("Album: " + data.tracks.items[0].album.name);
+	    console.log("Artist: " + data.tracks.items[0].artists[0].name);
+		console.log("Preview Link: " + data.tracks.items[0].album.href);
+	});
+}	
+
+function random() {
+	fs.readFile("random.txt", "utf8", function(error, data) {
+		if (error) {
+			console.log('Error occurred: ' + error);
+		}
+
+		var dataArr = data.split(",");
+
+		if (dataArr[0] === "spotify") {
+			spotify(dataArr[1]);
+		} 
 	});
 }
+
